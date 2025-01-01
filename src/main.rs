@@ -14,9 +14,32 @@ impl<'src> Value<'src> {
     }
 }
 
+impl<'src> Value<'src> {
+    fn to_block(self) -> Vec<Value<'src>> {
+      match self {
+        Self::Block(val) => val,
+        _ => panic!("Value is not a block"),
+      }
+    }
+}
+
 fn main() {
     for line in std::io::stdin().lines().flatten() {
         parse(&line);
+    }
+}
+
+fn eval<'src>(code: Value<'src>, stack: &mut Vec<Value<'src>>) {
+    match code {
+        Value::Op(op) => match op {
+            "+" => add(stack),
+            "-" => sub(stack),
+            "*" => mul(stack),
+            "/" => div(stack),
+            "if" => op_if(stack),
+            _ => panic!("Unknown operator: {op:?}"),
+        },
+        _ => stack.push(code),
     }
 }
 
@@ -40,13 +63,7 @@ fn parse<'a>(line: &'a str)-> Vec<Value<'a>> {
            stack.push(Value::Num(parsed));
        } else {
             // 数字、{} 以外の場合、演算子として処理する
-            match word {
-                "+" => add(&mut stack),
-                "-" => sub(&mut stack),
-                "*" => mul(&mut stack),
-                "/" => div(&mut stack),
-                _ => panic!("{word:?} could not be parsed"),
-            }
+            eval(Value::Op(word), &mut stack);
        }
        words = rest;
     }
@@ -110,6 +127,31 @@ fn div(stack: &mut Vec<Value>) {
     stack.push(Value::Num(lhs / rhs));
 }
 
+fn op_if(stack: &mut Vec<Value>) {
+    let false_branch = stack.pop().unwrap().to_block();
+    let true_branch = stack.pop().unwrap().to_block();
+    let cond = stack.pop().unwrap().to_block();
+
+    // 条件式の評価を行う
+    for code in cond {
+        eval(code, stack);
+    }
+
+    // 条件式の評価結果を取得する
+    let cond_result = stack.pop().unwrap().as_num();
+
+    // 条件式の結果によって、true_branch か false_branch を評価する
+    if cond_result != 0 {
+        for code in true_branch {
+            eval(code, stack);
+        }
+    } else {
+        for code in false_branch {
+            eval(code, stack);
+        }
+    }
+} 
+
 #[cfg(test)]
 mod test {
   use super::{parse, Value::*};
@@ -118,6 +160,22 @@ mod test {
     assert_eq!(
       parse("1 2 + { 3 4 }"),
       vec![Num(3), Block(vec![Num(3), Num(4)])]
+    );
+  }
+
+  #[test]
+  fn test_if_false() {
+    assert_eq!(
+      parse("{ 0 } { 1 } { -1 } if"),
+      vec![Num(-1)]
+    );
+  }
+
+  #[test]
+  fn test_if_true() {
+    assert_eq!(
+      parse("{ 1 } { 1 } { -1 } if"),
+      vec![Num(1)]
     );
   }
 }
