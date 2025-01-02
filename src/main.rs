@@ -39,7 +39,7 @@ impl_op!(lt, <);
 #[derive(Debug, Clone)]
 struct Vm {
     stack: Vec<Value>,            // スタックを保持するベクタ
-    vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
+    vars: Vec<HashMap<String, Value>>, // 変数を保持するハッシュマップ
     blocks: Vec<Vec<Value>>,      // ブロックを保持するベクタ
 }
 
@@ -59,12 +59,18 @@ impl Vm {
         ];
         Self {
             stack: vec![],
-            vars: functions
+            vars: vec![functions
                 .into_iter().map(|(name, fun)| {
                     (name.to_owned(), Value::Native(NativeOp(fun)))
-                }).collect(),
+                }).collect()],
             blocks: vec![],
         }
+    }
+    fn find_var(&self, name: &str) -> Option<Value> {
+        self.vars
+            .iter()
+            .rev()
+            .find_map(|vars| vars.get(name).map(|var| var.to_owned()))
     }
 }
 
@@ -171,7 +177,7 @@ fn parse_word(word: &str, vm: &mut Vm) {
 fn eval(code: Value, vm: &mut Vm) {
     println!("--------------------------------");
     println!("eval: {:?}\nStack: {:?} \n", code, vm.stack);
-    for (key,value) in vm.vars.iter() {
+    for (key,value) in vm.vars.iter().flatten() {
         if matches!(value, Value::Native(_)) {
             continue;
         }
@@ -194,13 +200,15 @@ fn eval(code: Value, vm: &mut Vm) {
     };
 
     // op_defで定義された変数がある場合は、その値を取得する
-    if let Some(val) = vm.vars.get(&op).cloned() {
+    if let Some(val) = vm.find_var(&op) {
         match val {
             Value::Block(block) => {
+                vm.vars.push(HashMap::new());
                 // ブロックの中身を評価
                 for code in block {
                     eval(code, vm);
                 }
+                vm.vars.pop();
             },
             Value::Native(op) => op.0(vm), // ネイティブ関数の場合は実行
             _ => {
@@ -244,7 +252,7 @@ fn op_def(vm: &mut Vm) {
     let value = vm.stack.pop().unwrap();
     let sym = vm.stack.pop().unwrap().as_sym().to_string();
 
-    vm.vars.insert(sym, value);
+    vm.vars.last_mut().unwrap().insert(sym, value);
 }
 
 fn dup(vm: &mut Vm) {
@@ -268,8 +276,10 @@ fn puts(vm: &mut Vm) {
 
 // Vmの状態の差分を表示する関数
 fn debug_vm_diff(code: &str, before: &Vm, after: &Vm) {
-    println!("--------------------------------");
-    println!("Code: {}\n", code);
+    if code != "" {
+        println!("--------------------------------");
+        println!("Code: {}\n", code);
+    }
 
     // スタックの差分を表示
     if before.stack != after.stack {
@@ -281,8 +291,8 @@ fn debug_vm_diff(code: &str, before: &Vm, after: &Vm) {
         let added: HashMap<_, _> = after
             .vars
             .iter()
-            .filter(|(key, _)| !before.vars.contains_key(*key))
-            .collect();
+            .filter(|key|!before.vars.contains(*key))
+            .flatten().collect();
         println!("Vars Added: {:?}\n", added);
     }
 
