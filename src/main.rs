@@ -2,41 +2,41 @@ use std::collections::HashMap;
 
 // 仮想マシンの構造体を定義
 struct Vm {
-  stack: Vec<Value>, // スタックを保持するベクタ
-  vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
-  blocks: Vec<Vec<Value>>, // ブロックを保持するベクタ
+    stack: Vec<Value>,            // スタックを保持するベクタ
+    vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
+    blocks: Vec<Vec<Value>>,      // ブロックを保持するベクタ
 }
 
 impl Vm {
-  fn new() -> Self {
-    Self {
-      stack: vec![],
-      vars: HashMap::new(),
-      blocks: vec![],
+    fn new() -> Self {
+        Self {
+            stack: vec![],
+            vars: HashMap::new(),
+            blocks: vec![],
+        }
     }
-  }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum Value {
-  Num(i32),
-  Op(String),
-  Sym(String),
-  Block(Vec<Value>),
+    Num(i32),
+    Op(String),
+    Sym(String),
+    Block(Vec<Value>),
 }
 
 impl Value {
     fn as_num(&self) -> i32 {
-      match self {
-        Self::Num(val) => *val,
-        _ => panic!("Value is not a number"),
-      }
+        match self {
+            Self::Num(val) => *val,
+            _ => panic!("Value is not a number"),
+        }
     }
     fn to_block(self) -> Vec<Value> {
-      match self {
-        Self::Block(val) => val,
-        _ => panic!("Value is not a block"),
-      }
+        match self {
+            Self::Block(val) => val,
+            _ => panic!("Value is not a block"),
+        }
     }
     fn as_sym(&self) -> &str {
         if let Self::Sym(sym) = self {
@@ -67,56 +67,56 @@ fn parse(line: &str, vm: &mut Vm) -> Vec<Value> {
 
     // 配列が空でない場合、最初の要素（&T）と残りの要素（&[T]）を含むタプルを返す
     while let Some((&word, mut rest)) = words.split_first() {
-       if word.is_empty() {
-           break;
-       }
-       if word == "{" {
+        if word.is_empty() {
+            break;
+        }
+        if word == "{" {
             // 今見ている要素が { だった場合、parse_block を呼び出して、それ以降の部分をパースする
             let value;
             (value, rest) = parse_block(rest);
             vm.stack.push(value);
             words = rest;
             continue;
-       }
-       // 値の種類によって、Value のインスタンスを生成しcodeに保持する
-       let code = if let Ok(parsed) = word.parse::<i32>() {
-           // 数字の場合は、Num としてスタックに積む
-           Value::Num(parsed)
-       } else if word.starts_with("/") {
-           Value::Sym(word[1..].to_string()) // /から始まる文字列を変数名とするため、/を取り除いた文字列を保持する
-       } else {
-           // 数字、{} 以外の場合、演算子として処理する
-           Value::Op(word.to_string())
-       };
-       eval(code, vm);
-       words = rest;
-       println!("stack: {:?}", vm.stack);
+        }
+        // 値の種類によって、Value のインスタンスを生成しcodeに保持する
+        let code = if let Ok(parsed) = word.parse::<i32>() {
+            // 数字の場合は、Num としてスタックに積む
+            Value::Num(parsed)
+        } else if word.starts_with("/") {
+            Value::Sym(word[1..].to_string()) // /から始まる文字列を変数名とするため、/を取り除いた文字列を保持する
+        } else {
+            // 数字、{} 以外の場合、演算子として処理する
+            Value::Op(word.to_string())
+        };
+        eval(code, vm);
+        words = rest;
+        println!("stack: {:?}", vm.stack);
     }
 
     println!("stack: {:?}", vm.stack);
-
     vm.stack.clone()
 }
 
 fn eval(code: Value, vm: &mut Vm) {
     match code {
-      Value::Op(ref op) => match op.as_str() {
-        "+" => add(&mut vm.stack),
-        "-" => sub(&mut vm.stack),
-        "*" => mul(&mut vm.stack),
-        "/" => div(&mut vm.stack),
-        "<" => lt(&mut vm.stack),
-        "if" => op_if(vm),
-        "def" => op_def(vm),
-        "puts" => puts(vm),
-        _ => {
-          let val = vm.vars.get(op).expect(&format!(
-            "{op:?} is not a defined operation"
-          ));
-          vm.stack.push(val.clone());
-        }
-      },
-      _ => vm.stack.push(code.clone()),
+        Value::Op(ref op) => match op.as_str() {
+            "+" => add(&mut vm.stack),
+            "-" => sub(&mut vm.stack),
+            "*" => mul(&mut vm.stack),
+            "/" => div(&mut vm.stack),
+            "<" => lt(&mut vm.stack),
+            "if" => op_if(vm),
+            "def" => op_def(vm),
+            "puts" => puts(vm),
+            _ => {
+                let val = vm
+                    .vars
+                    .get(op)
+                    .expect(&format!("{op:?} is not a defined operation"));
+                vm.stack.push(val.clone());
+            }
+        },
+        _ => vm.stack.push(code.clone()),
     }
 }
 
@@ -143,7 +143,7 @@ fn parse_block<'a>(input: &'a [&'a str]) -> (Value, &'a [&'a str]) {
         }
         words = rest;
     }
-    
+
     // 最後にtokensを返却する
     (Value::Block(tokens), words)
 }
@@ -156,8 +156,8 @@ macro_rules! impl_op {
             let lhs = stack.pop().unwrap().as_num();
             stack.push(Value::Num((lhs $op rhs) as i32));
         }
-    } 
-} 
+    }
+}
 
 // 二項演算子の関数を作成する
 impl_op!(add, +);
@@ -210,41 +210,35 @@ fn puts(vm: &mut Vm) {
 
 #[cfg(test)]
 mod test {
-  use super::{parse, Value::*, Vm};
+    use super::{parse, Value::*, Vm};
 
-  #[test]
-  fn test_group() {
-    let mut vm = Vm::new();
-    assert_eq!(
-      parse("1 2 + { 3 4 * }", &mut vm),
-      vec![Num(3), Block(vec![Num(3), Num(4) , Op("*".to_string())])]
-    );
-  }
+    #[test]
+    fn test_group() {
+        let mut vm = Vm::new();
+        assert_eq!(
+            parse("1 2 + { 3 4 * }", &mut vm),
+            vec![Num(3), Block(vec![Num(3), Num(4), Op("*".to_string())])]
+        );
+    }
 
-  #[test]
-  fn test_if_false() {
-    let mut vm = Vm::new();
-    assert_eq!(
-      parse("{ 0 } { 1 } { -1 } if", &mut vm),
-      vec![Num(-1)]
-    );
-  }
+    #[test]
+    fn test_if_false() {
+        let mut vm = Vm::new();
+        assert_eq!(parse("{ 0 } { 1 } { -1 } if", &mut vm), vec![Num(-1)]);
+    }
 
-  #[test]
-  fn test_if_true() {
-    let mut vm = Vm::new();
-    assert_eq!(
-      parse("{ 1 } { 1 } { -1 } if", &mut vm),
-      vec![Num(1)]
-    );
-  }
+    #[test]
+    fn test_if_true() {
+        let mut vm = Vm::new();
+        assert_eq!(parse("{ 1 } { 1 } { -1 } if", &mut vm), vec![Num(1)]);
+    }
 
-  #[test]
-  fn test_multiline() {
-    use std::io::Cursor;
-    use std::io::BufRead;
-    // 複数行の標準入力をシミュレートする
-    let input = r#"
+    #[test]
+    fn test_multiline() {
+        use std::io::BufRead;
+        use std::io::Cursor;
+        // 複数行の標準入力をシミュレートする
+        let input = r#"
 /x 10 def
 /y 20 def
 
@@ -253,15 +247,15 @@ mod test {
 { y }
 if
 "#;
-    let mut vm = Vm::new();
+        let mut vm = Vm::new();
 
-    // Cursorを用いて標準入力をシミュレート
-    let cursor = Cursor::new(input.as_bytes());
-    for line in cursor.lines().flatten() {
-        parse(&line, &mut vm);
+        // Cursorを用いて標準入力をシミュレート
+        let cursor = Cursor::new(input.as_bytes());
+        for line in cursor.lines().flatten() {
+            parse(&line, &mut vm);
+        }
+
+        // 結果を確認
+        assert_eq!(vm.stack, vec![Num(10)]);
     }
-
-    // 結果を確認
-    assert_eq!(vm.stack, vec![Num(10)]);
-  }   
 }
