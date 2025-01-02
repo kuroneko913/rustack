@@ -1,4 +1,4 @@
-use std::{collections::HashMap, io::{BufRead, BufReader}, vec};
+use std::{collections::HashMap, fmt::write, io::{BufRead, BufReader}, vec};
 
 // 仮想マシンの構造体を定義
 #[derive(Debug, Clone)]
@@ -18,12 +18,29 @@ impl Vm {
     }
 }
 
+#[derive(Clone)]
+struct NativeOp(fn(&mut Vm));
+
+// Eq, PartialEq, Debug トレイトを実装する
+impl Eq for NativeOp {}
+impl PartialEq for NativeOp {
+    fn eq(&self, _other: &NativeOp) -> bool {
+        self.0 as *const fn() == _other.0 as *const fn()
+    }
+}
+impl std::fmt::Debug for NativeOp {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "<NativeOp>")
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum Value {
     Num(i32),
     Op(String),
     Sym(String),
     Block(Vec<Value>),
+    Native(NativeOp),
 }
 
 impl Value {
@@ -51,6 +68,7 @@ impl Value {
             Self::Num(i) => i.to_string(),
             Self::Op(ref s) | Self::Sym(ref s) => s.clone(),
             Self::Block(_) => "<Block>".to_string(),
+            Self::Native(_) => "<Native>".to_string(),
         }
     }
 }
