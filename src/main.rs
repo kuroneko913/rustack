@@ -55,9 +55,15 @@ impl Value {
 }
 
 fn main() {
+    parse_interactive();
+}
+
+fn parse_interactive() {
     let mut vm = Vm::new();
     for line in std::io::stdin().lines().flatten() {
-        parse(&line, &mut vm);
+        for word in line.split(" ") {
+            parse_word(word, &mut vm);
+        }
     }
 }
 
