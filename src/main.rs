@@ -1,4 +1,4 @@
-use std::{collections::HashMap, vec};
+use std::{collections::HashMap, io::BufRead, vec};
 
 // 仮想マシンの構造体を定義
 struct Vm {
@@ -58,12 +58,23 @@ fn main() {
     parse_interactive();
 }
 
+fn parse_batch(source: impl BufRead) -> Vec<Value> {
+    let mut vm = Vm::new();
+    for line in source.lines().flatten() {
+        for word in line.split(" ") {
+            parse_word(word, &mut vm);
+        }
+    }
+    vm.stack
+}
+
 fn parse_interactive() {
     let mut vm = Vm::new();
     for line in std::io::stdin().lines().flatten() {
         for word in line.split(" ") {
             parse_word(word, &mut vm);
         }
+        println!("stack: {:?}", vm.stack);
     }
 }
 
