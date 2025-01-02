@@ -1,0 +1,3 @@
+/double { 2 * } def
+10 double
+puts

@@ -116,25 +116,45 @@ fn eval(code: Value, vm: &mut Vm) {
         top_block.push(code);
         return;
     }
-    match code {
-        Value::Op(ref op) => match op.as_str() {
-            "+" => add(&mut vm.stack),
-            "-" => sub(&mut vm.stack),
-            "*" => mul(&mut vm.stack),
-            "/" => div(&mut vm.stack),
-            "<" => lt(&mut vm.stack),
-            "if" => op_if(vm),
-            "def" => op_def(vm),
-            "puts" => puts(vm),
-            _ => {
-                let val = vm
-                    .vars
-                    .get(op)
-                    .expect(&format!("{op:?} is not a defined operation"));
-                vm.stack.push(val.clone());
+
+    // 演算子でない場合はスタックに積む
+    if !matches!(code, Value::Op(_)) {
+        vm.stack.push(code);
+        return;
+    }
+
+    // 演算子の場合
+    let Value::Op(op) = code else {
+        panic!("Expected operator, found {:?}", code);
+    };
+
+    // op_defで定義された変数がある場合は、その値を取得する
+    if let Some(val) = vm.vars.get(&op).cloned() {
+        match val {
+            Value::Block(block) => {
+                // ブロックの中身を評価
+                for code in block {
+                    eval(code, vm);
+                }
             }
-        },
-        _ => vm.stack.push(code.clone()),
+            _ => {
+                vm.stack.push(val); // 他の値はスタックに積む
+            }
+        }
+        return;
+    }
+
+    // 定義済みの演算子を処理
+    match op.as_str() {
+        "+" => add(&mut vm.stack),
+        "-" => sub(&mut vm.stack),
+        "*" => mul(&mut vm.stack),
+        "/" => div(&mut vm.stack),
+        "<" => lt(&mut vm.stack),
+        "if" => op_if(vm),
+        "def" => op_def(vm),
+        "puts" => puts(vm),
+        _ => panic!("operation is not defined: {}", op),
     }
 }
 
@@ -244,5 +264,19 @@ if
 
         // 結果を確認
         assert_eq!(parse_batch(cursor), vec![Num(10)]);
+    }
+
+    #[test]
+    fn test_function_definition() {
+        // 複数行の標準入力をシミュレートする
+        let input = r#"
+/double { 2 * } def
+10 double
+"#;
+        // Cursorを用いて標準入力をシミュレート
+        let cursor = Cursor::new(input.as_bytes());
+
+        // 結果を確認
+        assert_eq!(parse_batch(cursor), vec![Num(20)]);
     }
 }
