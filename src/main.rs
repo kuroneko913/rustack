@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, vec};
 
 // 仮想マシンの構造体を定義
 struct Vm {
@@ -71,23 +71,29 @@ fn parse(line: &str, vm: &mut Vm) -> Vec<Value> {
             break;
         }
         if word == "{" {
-            // 今見ている要素が { だった場合、parse_block を呼び出して、それ以降の部分をパースする
-            let value;
-            (value, rest) = parse_block(rest);
-            vm.stack.push(value);
+            // ブロックを保持できるように、blocksに空のベクタを追加する
+            vm.blocks.push(vec![]);
+            words = rest;
+            continue;
+        }
+        if word == "}" {
+            // ブロックを保持するベクタを取り出し、Blockとしてスタックに積む
+            let block = vm.blocks.pop().expect("block stack is empty");
+            eval(Value::Block(block), vm);
             words = rest;
             continue;
         }
         // 値の種類によって、Value のインスタンスを生成しcodeに保持する
-        let code = if let Ok(parsed) = word.parse::<i32>() {
+        let code = if let Ok(num) = word.parse::<i32>() {
             // 数字の場合は、Num としてスタックに積む
-            Value::Num(parsed)
+            Value::Num(num)
         } else if word.starts_with("/") {
             Value::Sym(word[1..].to_string()) // /から始まる文字列を変数名とするため、/を取り除いた文字列を保持する
         } else {
             // 数字、{} 以外の場合、演算子として処理する
             Value::Op(word.to_string())
         };
+        print!("{:?} ", code);
         eval(code, vm);
         words = rest;
         println!("stack: {:?}", vm.stack);
@@ -98,6 +104,11 @@ fn parse(line: &str, vm: &mut Vm) -> Vec<Value> {
 }
 
 fn eval(code: Value, vm: &mut Vm) {
+    // ブロック構造の中にある場合、評価せずにブロックにコードを追加する
+    if let Some(top_block) = vm.blocks.last_mut() {
+        top_block.push(code);
+        return;
+    }
     match code {
         Value::Op(ref op) => match op.as_str() {
             "+" => add(&mut vm.stack),
