@@ -4,6 +4,7 @@ use std::collections::HashMap;
 struct Vm {
   stack: Vec<Value>, // スタックを保持するベクタ
   vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
+  blocks: Vec<Vec<Value>>, // ブロックを保持するベクタ
 }
 
 impl Vm {
@@ -11,6 +12,7 @@ impl Vm {
     Self {
       stack: vec![],
       vars: HashMap::new(),
+      blocks: vec![],
     }
   }
 }
@@ -19,8 +21,8 @@ impl Vm {
 enum Value {
   Num(i32),
   Op(String),
-  Block(Vec<Value>),
   Sym(String),
+  Block(Vec<Value>),
 }
 
 impl Value {
