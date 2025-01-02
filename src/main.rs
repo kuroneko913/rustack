@@ -1,6 +1,7 @@
 use std::{collections::HashMap, io::{BufRead, BufReader}, vec};
 
 // 仮想マシンの構造体を定義
+#[derive(Debug, Clone)]
 struct Vm {
     stack: Vec<Value>,            // スタックを保持するベクタ
     vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
@@ -66,7 +67,9 @@ fn parse_batch(source: impl BufRead) -> Vec<Value> {
     let mut vm = Vm::new();
     for line in source.lines().flatten() {
         for word in line.split(" ") {
+            let vm_before = vm.clone();
             parse_word(word, &mut vm);
+            debug_vm_diff(word, &vm_before, &vm);
         }
     }
     vm.stack
@@ -216,6 +219,21 @@ fn op_def(vm: &mut Vm) {
 fn puts(vm: &mut Vm) {
     let value = vm.stack.pop().unwrap();
     println!("{}", value.to_string());
+}
+
+// Vmの状態の差分を表示する関数
+fn debug_vm_diff(code: &str, before: &Vm, after: &Vm) {
+    println!("--------------------------------");
+    println!("Value: {:?}", code);
+    if before.stack != after.stack {
+        println!("Stack: {:?} -> {:?}", before.stack, after.stack);
+    }
+    if before.vars != after.vars {
+        println!("Vars: {:?} -> {:?}", before.vars, after.vars);
+    }
+    if before.blocks != after.blocks {
+        println!("Blocks: {:?} -> {:?}", before.blocks, after.blocks);
+    }
 }
 
 #[cfg(test)]
