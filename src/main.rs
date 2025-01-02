@@ -131,34 +131,6 @@ fn eval(code: Value, vm: &mut Vm) {
     }
 }
 
-fn parse_block<'a>(input: &'a [&'a str]) -> (Value, &'a [&'a str]) {
-    let mut tokens = vec![];
-    let mut words = input;
-
-    while let Some((&word, mut rest)) = words.split_first() {
-        if word.is_empty() {
-            break;
-        }
-        // {}の中身をtokensに保持して、}が来たら値(数値と演算子を含むオブジェクト)を返却する
-        if word == "{" {
-            let value;
-            (value, rest) = parse_block(rest);
-            tokens.push(value);
-        } else if word == "}" {
-            // {}の中身はBlockとして保持する
-            return (Value::Block(tokens), rest);
-        } else if let Ok(value) = word.parse::<i32>() {
-            tokens.push(Value::Num(value)); // 数字は数字で保持する
-        } else {
-            tokens.push(Value::Op(word.to_string())); // それ以外は演算子として保持する
-        }
-        words = rest;
-    }
-
-    // 最後にtokensを返却する
-    (Value::Block(tokens), words)
-}
-
 // 関数を作るマクロ addなどの関数を作成する
 macro_rules! impl_op {
     { $name:ident, $op:tt } => {
