@@ -1,22 +1,7 @@
-use std::{collections::HashMap, fmt::write, io::{BufRead, BufReader}, vec};
-
-// 仮想マシンの構造体を定義
-#[derive(Debug, Clone)]
-struct Vm {
-    stack: Vec<Value>,            // スタックを保持するベクタ
-    vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
-    blocks: Vec<Vec<Value>>,      // ブロックを保持するベクタ
-}
-
-impl Vm {
-    fn new() -> Self {
-        Self {
-            stack: vec![],
-            vars: HashMap::new(),
-            blocks: vec![],
-        }
-    }
-}
+use std::{
+    collections::HashMap, 
+    io::{BufRead, BufReader}, 
+};
 
 #[derive(Clone)]
 struct NativeOp(fn(&mut Vm));
@@ -31,6 +16,55 @@ impl PartialEq for NativeOp {
 impl std::fmt::Debug for NativeOp {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "<NativeOp>")
+    }
+}
+
+macro_rules! impl_op {
+    {$name:ident, $op:tt} => {
+        fn $name(vm: &mut Vm) {
+            let rhs = vm.stack.pop().unwrap().as_num();
+            let lhs = vm.stack.pop().unwrap().as_num();
+            vm.stack.push(Value::Num((lhs $op rhs) as i32));
+        }
+    }
+}
+
+impl_op!(add, +);
+impl_op!(sub, -);
+impl_op!(mul, *);
+impl_op!(div, /);
+impl_op!(lt, <);
+
+// 仮想マシンの構造体を定義
+#[derive(Debug, Clone)]
+struct Vm {
+    stack: Vec<Value>,            // スタックを保持するベクタ
+    vars: HashMap<String, Value>, // 変数を保持するハッシュマップ
+    blocks: Vec<Vec<Value>>,      // ブロックを保持するベクタ
+}
+
+impl Vm {
+    fn new() -> Self {
+        let functions: [(&str, fn(&mut Vm)); 10] = [
+            ("+", add),
+            ("-", sub),
+            ("*", mul),
+            ("/", div),
+            ("<", lt),
+            ("if", op_if),
+            ("def", op_def),
+            ("puts", puts),
+            ("dup", dup),
+            ("exch", exch),
+        ];
+        Self {
+            stack: vec![],
+            vars: functions
+                .into_iter().map(|(name, fun)| {
+                    (name.to_owned(), Value::Native(NativeOp(fun)))
+                }).collect(),
+            blocks: vec![],
+        }
     }
 }
 
@@ -157,47 +191,15 @@ fn eval(code: Value, vm: &mut Vm) {
                 for code in block {
                     eval(code, vm);
                 }
-            }
+            },
+            Value::Native(op) => op.0(vm), // ネイティブ関数の場合は実行
             _ => {
                 vm.stack.push(val); // 他の値はスタックに積む
             }
         }
         return;
     }
-
-    // 定義済みの演算子を処理
-    match op.as_str() {
-        "+" => add(&mut vm.stack),
-        "-" => sub(&mut vm.stack),
-        "*" => mul(&mut vm.stack),
-        "/" => div(&mut vm.stack),
-        "<" => lt(&mut vm.stack),
-        "if" => op_if(vm),
-        "def" => op_def(vm),
-        "puts" => puts(vm),
-        "dup" => dup(vm),
-        "exch" => exch(vm),
-        _ => panic!("operation is not defined: {}", op),
-    }
 }
-
-// 関数を作るマクロ addなどの関数を作成する
-macro_rules! impl_op {
-    { $name:ident, $op:tt } => {
-        fn $name(stack: &mut Vec<Value>) {
-            let rhs = stack.pop().unwrap().as_num();
-            let lhs = stack.pop().unwrap().as_num();
-            stack.push(Value::Num((lhs $op rhs) as i32));
-        }
-    }
-}
-
-// 二項演算子の関数を作成する
-impl_op!(add, +);
-impl_op!(sub, -);
-impl_op!(mul, *);
-impl_op!(div, /);
-impl_op!(lt, <);
 
 // if演算子を定義する関数
 fn op_if(vm: &mut Vm) {
