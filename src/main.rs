@@ -157,6 +157,8 @@ fn eval(code: Value, vm: &mut Vm) {
         "if" => op_if(vm),
         "def" => op_def(vm),
         "puts" => puts(vm),
+        "dup" => dup(vm),
+        "exch" => exch(vm),
         _ => panic!("operation is not defined: {}", op),
     }
 }
@@ -213,6 +215,19 @@ fn op_def(vm: &mut Vm) {
     let sym = vm.stack.pop().unwrap().as_sym().to_string();
 
     vm.vars.insert(sym, value);
+}
+
+fn dup(vm: &mut Vm) {
+    let value = vm.stack.last().unwrap();
+    vm.stack.push(value.clone());
+}
+
+fn exch(vm: &mut Vm) {
+    // [second, last] -> [last, second]
+    let last = vm.stack.pop().unwrap();
+    let second = vm.stack.pop().unwrap();
+    vm.stack.push(last); 
+    vm.stack.push(second);
 }
 
 // 値を標準出力に出力する関数
