@@ -1,4 +1,4 @@
-use std::{collections::HashMap, io::BufRead, vec};
+use std::{collections::HashMap, io::{BufRead, BufReader}, vec};
 
 // 仮想マシンの構造体を定義
 struct Vm {
@@ -55,7 +55,11 @@ impl Value {
 }
 
 fn main() {
-    parse_interactive();
+    if let Some(f) = std::env::args().nth(1).and_then(|f| std::fs::File::open(f).ok()) {
+        parse_batch(BufReader::new(f));
+    } else {
+        parse_interactive();
+    }
 }
 
 fn parse_batch(source: impl BufRead) -> Vec<Value> {
@@ -196,33 +200,35 @@ fn puts(vm: &mut Vm) {
 
 #[cfg(test)]
 mod test {
-    use super::{parse, Value::*, Vm};
+    use super::{parse_batch, Value::*};
+    use std::io::Cursor;
 
     #[test]
     fn test_group() {
-        let mut vm = Vm::new();
         assert_eq!(
-            parse("1 2 + { 3 4 * }", &mut vm),
+            parse_batch(Cursor::new("1 2 + { 3 4 * }")),
             vec![Num(3), Block(vec![Num(3), Num(4), Op("*".to_string())])]
         );
     }
 
     #[test]
     fn test_if_false() {
-        let mut vm = Vm::new();
-        assert_eq!(parse("{ 0 } { 1 } { -1 } if", &mut vm), vec![Num(-1)]);
+        assert_eq!(
+            parse_batch(Cursor::new("{ 0 } { 1 } { -1 } if")),
+             vec![Num(-1)]
+        );
     }
 
     #[test]
     fn test_if_true() {
-        let mut vm = Vm::new();
-        assert_eq!(parse("{ 1 } { 1 } { -1 } if", &mut vm), vec![Num(1)]);
+        assert_eq!(
+            parse_batch(Cursor::new("{ 1 } { 1 } { -1 } if")),
+             vec![Num(1)]
+        );
     }
 
     #[test]
     fn test_multiline() {
-        use std::io::BufRead;
-        use std::io::Cursor;
         // 複数行の標準入力をシミュレートする
         let input = r#"
 /x 10 def
@@ -233,15 +239,10 @@ mod test {
 { y }
 if
 "#;
-        let mut vm = Vm::new();
-
         // Cursorを用いて標準入力をシミュレート
         let cursor = Cursor::new(input.as_bytes());
-        for line in cursor.lines().flatten() {
-            parse(&line, &mut vm);
-        }
 
         // 結果を確認
-        assert_eq!(vm.stack, vec![Num(10)]);
+        assert_eq!(parse_batch(cursor), vec![Num(10)]);
     }
 }
