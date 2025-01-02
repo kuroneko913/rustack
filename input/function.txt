@@ -1,3 +1,8 @@
 /double { 2 * } def
 10 double
 puts
+
+/square { dup * } def
+/double { 2 * } def
+/vec2sqlen { square exch square exch + } def
+1 2 vec2sqlen puts

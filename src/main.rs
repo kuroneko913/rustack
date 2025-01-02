@@ -166,6 +166,7 @@ fn parse_word(word: &str, vm: &mut Vm) {
 }
 
 fn eval(code: Value, vm: &mut Vm) {
+    println!("eval: {:?} Stack: {:?}", code, vm.stack);
     // ブロック構造の中にある場合、評価せずにブロックにコードを追加する
     if let Some(top_block) = vm.blocks.last_mut() {
         top_block.push(code);
