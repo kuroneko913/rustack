@@ -95,48 +95,6 @@ fn parse_word(word: &str, vm: &mut Vm) {
     eval(code, vm);
 }
 
-fn parse(line: &str, vm: &mut Vm) -> Vec<Value> {
-    let input: Vec<_> = line.split(" ").collect();
-    let mut words = &input[..]; // 全範囲を意味する
-
-    // 配列が空でない場合、最初の要素（&T）と残りの要素（&[T]）を含むタプルを返す
-    while let Some((&word, mut rest)) = words.split_first() {
-        if word.is_empty() {
-            break;
-        }
-        if word == "{" {
-            // ブロックを保持できるように、blocksに空のベクタを追加する
-            vm.blocks.push(vec![]);
-            words = rest;
-            continue;
-        }
-        if word == "}" {
-            // ブロックを保持するベクタを取り出し、Blockとしてスタックに積む
-            let block = vm.blocks.pop().expect("block stack is empty");
-            eval(Value::Block(block), vm);
-            words = rest;
-            continue;
-        }
-        // 値の種類によって、Value のインスタンスを生成しcodeに保持する
-        let code = if let Ok(num) = word.parse::<i32>() {
-            // 数字の場合は、Num としてスタックに積む
-            Value::Num(num)
-        } else if word.starts_with("/") {
-            Value::Sym(word[1..].to_string()) // /から始まる文字列を変数名とするため、/を取り除いた文字列を保持する
-        } else {
-            // 数字、{} 以外の場合、演算子として処理する
-            Value::Op(word.to_string())
-        };
-        print!("{:?} ", code);
-        eval(code, vm);
-        words = rest;
-        println!("stack: {:?}", vm.stack);
-    }
-
-    println!("stack: {:?}", vm.stack);
-    vm.stack.clone()
-}
-
 fn eval(code: Value, vm: &mut Vm) {
     // ブロック構造の中にある場合、評価せずにブロックにコードを追加する
     if let Some(top_block) = vm.blocks.last_mut() {
