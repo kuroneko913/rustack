@@ -152,6 +152,9 @@ fn parse_word(word: &str, vm: &mut Vm) {
         eval(Value::Block(block), vm);
         return;
     }
+    if word == "\u{3000}" {
+        return;
+    }
     // 値の種類によって、Value のインスタンスを生成しcodeに保持する
     let code = if let Ok(num) = word.parse::<i32>() {
         // 数字の場合は、Num としてスタックに積む
@@ -166,13 +169,19 @@ fn parse_word(word: &str, vm: &mut Vm) {
 }
 
 fn eval(code: Value, vm: &mut Vm) {
-    println!("eval: {:?} Stack: {:?}", code, vm.stack);
+    println!("--------------------------------");
+    println!("eval: {:?}\nStack: {:?} \n", code, vm.stack);
+    for (key,value) in vm.vars.iter() {
+        if matches!(value, Value::Native(_)) {
+            continue;
+        }
+        println!("{}: {:?}", key, value);
+    }
     // ブロック構造の中にある場合、評価せずにブロックにコードを追加する
     if let Some(top_block) = vm.blocks.last_mut() {
         top_block.push(code);
         return;
     }
-
     // 演算子でない場合はスタックに積む
     if !matches!(code, Value::Op(_)) {
         vm.stack.push(code);
@@ -260,15 +269,26 @@ fn puts(vm: &mut Vm) {
 // Vmの状態の差分を表示する関数
 fn debug_vm_diff(code: &str, before: &Vm, after: &Vm) {
     println!("--------------------------------");
-    println!("Value: {:?}", code);
+    println!("Code: {}\n", code);
+
+    // スタックの差分を表示
     if before.stack != after.stack {
-        println!("Stack: {:?} -> {:?}", before.stack, after.stack);
+        println!("Stack: {:?}\n -> {:?}\n", before.stack, after.stack);
     }
+
+    // 変数の差分を表示
     if before.vars != after.vars {
-        println!("Vars: {:?} -> {:?}", before.vars, after.vars);
+        let added: HashMap<_, _> = after
+            .vars
+            .iter()
+            .filter(|(key, _)| !before.vars.contains_key(*key))
+            .collect();
+        println!("Vars Added: {:?}\n", added);
     }
+
+    // ブロックの差分を表示
     if before.blocks != after.blocks {
-        println!("Blocks: {:?} -> {:?}", before.blocks, after.blocks);
+        println!("Blocks: {:?} \n-> {:?}\n", before.blocks, after.blocks);
     }
 }
 

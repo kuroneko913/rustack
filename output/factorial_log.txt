@@ -1,0 +1,2122 @@
+--------------------------------
+eval: Sym("factorial")
+Stack: [] 
+
+--------------------------------
+Code: /factorial
+
+Stack: []
+ -> [Sym("factorial")]
+
+--------------------------------
+Code: {
+
+Blocks: [] 
+-> [[]]
+
+--------------------------------
+eval: Num(1)
+Stack: [Sym("factorial")] 
+
+--------------------------------
+Code: 1
+
+Blocks: [[]] 
+-> [[Num(1)]]
+
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Sym("factorial")] 
+
+--------------------------------
+Code: factorial_int
+
+Blocks: [[Num(1)]] 
+-> [[Num(1), Op("factorial_int")]]
+
+--------------------------------
+eval: Block([Num(1), Op("factorial_int")])
+Stack: [Sym("factorial")] 
+
+--------------------------------
+Code: }
+
+Stack: [Sym("factorial")]
+ -> [Sym("factorial"), Block([Num(1), Op("factorial_int")])]
+
+Blocks: [[Num(1), Op("factorial_int")]] 
+-> []
+
+--------------------------------
+eval: Op("def")
+Stack: [Sym("factorial"), Block([Num(1), Op("factorial_int")])] 
+
+--------------------------------
+eval: Block([Num(1), Op("factorial_int")])
+Stack: [Sym("factorial")] 
+
+--------------------------------
+Code: def
+
+Stack: [Sym("factorial"), Block([Num(1), Op("factorial_int")])]
+ -> []
+
+Vars Added: {"factorial": Block([Num(1), Op("factorial_int")])}
+
+--------------------------------
+eval: Sym("factorial_int")
+Stack: [] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: /factorial_int
+
+Stack: []
+ -> [Sym("factorial_int")]
+
+--------------------------------
+Code: {
+
+Blocks: [] 
+-> [[]]
+
+--------------------------------
+eval: Sym("acc")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: /acc
+
+Blocks: [[]] 
+-> [[Sym("acc")]]
+
+--------------------------------
+eval: Op("exch")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: exch
+
+Blocks: [[Sym("acc")]] 
+-> [[Sym("acc"), Op("exch")]]
+
+--------------------------------
+eval: Op("def")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: def
+
+Blocks: [[Sym("acc"), Op("exch")]] 
+-> [[Sym("acc"), Op("exch"), Op("def")]]
+
+--------------------------------
+eval: Sym("n")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: /n
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n")]]
+
+--------------------------------
+eval: Op("exch")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: exch
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch")]]
+
+--------------------------------
+eval: Op("def")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: def
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")]]
+
+--------------------------------
+Code: {
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], []]
+
+--------------------------------
+eval: Op("n")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: n
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], []] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n")]]
+
+--------------------------------
+eval: Num(2)
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: 2
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n"), Num(2)]]
+
+--------------------------------
+eval: Op("<")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: <
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n"), Num(2)]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n"), Num(2), Op("<")]]
+
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: }
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def")], [Op("n"), Num(2), Op("<")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])]]
+
+--------------------------------
+Code: {
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])], []]
+
+--------------------------------
+eval: Op("acc")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: acc
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])], []] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])], [Op("acc")]]
+
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: }
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")])], [Op("acc")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])]]
+
+--------------------------------
+Code: {
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], []]
+
+--------------------------------
+eval: Op("n")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: n
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], []] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n")]]
+
+--------------------------------
+eval: Num(1)
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: 1
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1)]]
+
+--------------------------------
+eval: Op("-")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: -
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1)]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-")]]
+
+--------------------------------
+Code: 　
+
+--------------------------------
+eval: Op("acc")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: acc
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc")]]
+
+--------------------------------
+eval: Op("n")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: n
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n")]]
+
+--------------------------------
+eval: Op("*")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: *
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*")]]
+
+--------------------------------
+Code: 　
+
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: factorial_int
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]]
+
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: }
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])], [Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])]]
+
+--------------------------------
+eval: Op("if")
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: if
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])]] 
+-> [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")]]
+
+--------------------------------
+eval: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: }
+
+Stack: [Sym("factorial_int")]
+ -> [Sym("factorial_int"), Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])]
+
+Blocks: [[Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")]] 
+-> []
+
+--------------------------------
+eval: Op("def")
+Stack: [Sym("factorial_int"), Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+eval: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+Stack: [Sym("factorial_int")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+--------------------------------
+Code: def
+
+Stack: [Sym("factorial_int"), Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])]
+ -> []
+
+Vars Added: {"factorial_int": Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])}
+
+--------------------------------
+eval: Num(10)
+Stack: [] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+Code: 10
+
+Stack: []
+ -> [Num(10)]
+
+--------------------------------
+eval: Op("factorial")
+Stack: [Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Num(1)
+Stack: [Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(10), Num(1)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(10), Num(1)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Op("exch")
+Stack: [Num(10), Num(1), Sym("acc")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Op("def")
+Stack: [Num(10), Sym("acc"), Num(1)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Num(1)
+Stack: [Num(10), Sym("acc")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+--------------------------------
+eval: Sym("n")
+Stack: [Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(10), Sym("n")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1)
+--------------------------------
+eval: Num(10)
+Stack: [Sym("n")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Num(2)
+Stack: [Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("<")
+Stack: [Num(10), Num(2)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Num(1)
+Stack: [Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("-")
+Stack: [Num(10), Num(1)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(9)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("n")
+Stack: [Num(9), Num(1)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("*")
+Stack: [Num(9), Num(1), Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(9), Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(9), Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(9), Num(10), Sym("acc")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Op("def")
+Stack: [Num(9), Sym("acc"), Num(10)] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Num(10)
+Stack: [Num(9), Sym("acc")] 
+
+factorial: Block([Num(1), Op("factorial_int")])
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+n: Num(10)
+acc: Num(1)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(9)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(10)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(9), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(10)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(9)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(10)
+--------------------------------
+eval: Num(9)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(10)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Num(2)
+Stack: [Num(9)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("<")
+Stack: [Num(9), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Num(1)
+Stack: [Num(9)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("-")
+Stack: [Num(9), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("n")
+Stack: [Num(8), Num(10)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("*")
+Stack: [Num(8), Num(10), Num(9)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(8), Num(90)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(8), Num(90)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(8), Num(90), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("def")
+Stack: [Num(8), Sym("acc"), Num(90)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Num(90)
+Stack: [Num(8), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(10)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(8), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Num(8)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(9)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Num(2)
+Stack: [Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("<")
+Stack: [Num(8), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Num(1)
+Stack: [Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("-")
+Stack: [Num(8), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("n")
+Stack: [Num(7), Num(90)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("*")
+Stack: [Num(7), Num(90), Num(8)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(7), Num(720)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(7), Num(720)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(7), Num(720), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("def")
+Stack: [Num(7), Sym("acc"), Num(720)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Num(720)
+Stack: [Num(7), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(90)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(7), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Num(7)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(8)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Num(2)
+Stack: [Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("<")
+Stack: [Num(7), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Num(1)
+Stack: [Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("-")
+Stack: [Num(7), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("n")
+Stack: [Num(6), Num(720)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("*")
+Stack: [Num(6), Num(720), Num(7)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(6), Num(5040)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(6), Num(5040)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(6), Num(5040), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("def")
+Stack: [Num(6), Sym("acc"), Num(5040)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Num(5040)
+Stack: [Num(6), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(720)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(6), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Num(6)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(7)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Num(2)
+Stack: [Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("<")
+Stack: [Num(6), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Num(1)
+Stack: [Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("-")
+Stack: [Num(6), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("n")
+Stack: [Num(5), Num(5040)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("*")
+Stack: [Num(5), Num(5040), Num(6)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(5), Num(30240)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(5), Num(30240)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(5), Num(30240), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("def")
+Stack: [Num(5), Sym("acc"), Num(30240)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Num(30240)
+Stack: [Num(5), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(5040)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(5), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Num(5)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(6)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Num(2)
+Stack: [Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("<")
+Stack: [Num(5), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Num(1)
+Stack: [Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("-")
+Stack: [Num(5), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("n")
+Stack: [Num(4), Num(30240)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("*")
+Stack: [Num(4), Num(30240), Num(5)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(4), Num(151200)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(4), Num(151200)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(4), Num(151200), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("def")
+Stack: [Num(4), Sym("acc"), Num(151200)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Num(151200)
+Stack: [Num(4), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(30240)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(4), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Num(4)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(5)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Num(2)
+Stack: [Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("<")
+Stack: [Num(4), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Num(1)
+Stack: [Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("-")
+Stack: [Num(4), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("n")
+Stack: [Num(3), Num(151200)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("*")
+Stack: [Num(3), Num(151200), Num(4)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(3), Num(604800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(3), Num(604800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(3), Num(604800), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("def")
+Stack: [Num(3), Sym("acc"), Num(604800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Num(604800)
+Stack: [Num(3), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(151200)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(3), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Num(3)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(4)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Num(2)
+Stack: [Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("<")
+Stack: [Num(3), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Num(1)
+Stack: [Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("-")
+Stack: [Num(3), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("n")
+Stack: [Num(2), Num(604800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("*")
+Stack: [Num(2), Num(604800), Num(3)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(2), Num(1814400)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(2), Num(1814400)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(2), Num(1814400), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("def")
+Stack: [Num(2), Sym("acc"), Num(1814400)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Num(1814400)
+Stack: [Num(2), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(604800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(2), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Num(2)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(3)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Num(2)
+Stack: [Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("<")
+Stack: [Num(2), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Num(1)
+Stack: [Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("-")
+Stack: [Num(2), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("acc")
+Stack: [Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("n")
+Stack: [Num(1), Num(1814400)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("*")
+Stack: [Num(1), Num(1814400), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("factorial_int")
+Stack: [Num(1), Num(3628800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Sym("acc")
+Stack: [Num(1), Num(3628800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(1), Num(3628800), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("def")
+Stack: [Num(1), Sym("acc"), Num(3628800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Num(3628800)
+Stack: [Num(1), Sym("acc")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(1814400)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Sym("n")
+Stack: [Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("exch")
+Stack: [Num(1), Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Op("def")
+Stack: [Sym("n"), Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Num(1)
+Stack: [Sym("n")] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(2)
+--------------------------------
+eval: Block([Op("n"), Num(2), Op("<")])
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Block([Op("acc")])
+Stack: [Block([Op("n"), Num(2), Op("<")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Op("if")
+Stack: [Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")])] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Op("n")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Num(2)
+Stack: [Num(1)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Op("<")
+Stack: [Num(1), Num(2)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+eval: Op("acc")
+Stack: [] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+--------------------------------
+Code: factorial
+
+Stack: [Num(10)]
+ -> [Num(3628800)]
+
+Vars Added: {"acc": Num(3628800), "n": Num(1)}
+
+--------------------------------
+eval: Op("puts")
+Stack: [Num(3628800)] 
+
+factorial_int: Block([Sym("acc"), Op("exch"), Op("def"), Sym("n"), Op("exch"), Op("def"), Block([Op("n"), Num(2), Op("<")]), Block([Op("acc")]), Block([Op("n"), Num(1), Op("-"), Op("acc"), Op("n"), Op("*"), Op("factorial_int")]), Op("if")])
+acc: Num(3628800)
+factorial: Block([Num(1), Op("factorial_int")])
+n: Num(1)
+3628800
+--------------------------------
+Code: puts
+
+Stack: [Num(3628800)]
+ -> []
+
